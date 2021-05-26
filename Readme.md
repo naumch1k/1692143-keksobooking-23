@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Наумчик Ирина](https://up.htmlacademy.ru/javascript/23/user/1692143).
-* Наставник: `Неизвестно`.
+* Наставник: [Руслан Бреев](https://htmlacademy.ru/profile/blckwltz).
 
 ---
 
