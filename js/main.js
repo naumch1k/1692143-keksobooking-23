@@ -1,6 +1,4 @@
-import {createOffer} from './data.js';
+import { similarOffersFragment } from './card.js';
 
-
-const OFFER_COPY_COUNT = 10;
-
-new Array(OFFER_COPY_COUNT).fill(null).map(() => createOffer());
+const cardListElement = document.querySelector('#map-canvas');
+cardListElement.appendChild(similarOffersFragment);

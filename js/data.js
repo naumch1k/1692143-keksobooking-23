@@ -8,9 +8,11 @@ import {
 
 // constants
 
+const OFFER_COPY_COUNT = 1;
+
 const DIGITS_AFTER_POINT = 5;
 const USER_AVATAR_QUANTITY = 11;
-const OFFER_MAX_PRICE = 100000;
+const OFFER_MAX_PRICE = 1000000;
 
 const RoomsNumber = {
   MIN: 1,
@@ -107,4 +109,6 @@ const createOffer = () => {
   };
 };
 
-export {createOffer};
+const devData = new Array(OFFER_COPY_COUNT).fill(null).map(() => createOffer());
+
+export { devData };
