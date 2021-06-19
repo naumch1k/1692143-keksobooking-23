@@ -1,6 +1,5 @@
-import {createOffer} from './data.js';
+import { disableForms } from './form.js';
+import { renderCardListElement } from './card-list.js';
 
-
-const OFFER_COPY_COUNT = 10;
-
-new Array(OFFER_COPY_COUNT).fill(null).map(() => createOffer());
+disableForms();
+renderCardListElement();
