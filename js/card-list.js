@@ -2,7 +2,7 @@ import { createOffers } from './data.js';
 
 const cardSelectors = {
   card: '.popup',
-  cardTemplate: '#card',
+  cardTemplateId: '#card',
   title: '.popup__title',
   address: '.popup__text--address',
   price: '.popup__text--price',
@@ -11,9 +11,10 @@ const cardSelectors = {
   time: '.popup__text--time',
   features: '.popup__features',
   feature: '.popup__feature',
+  featureClass: 'popup__feature',
   description: '.popup__description',
   photos: '.popup__photos',
-  photo: 'popup__photo',
+  photoClass: 'popup__photo',
   avatar: '.popup__avatar',
 };
 
@@ -25,15 +26,28 @@ const OFFER_TYPES = {
   'hotel': 'Отель',
 };
 
-const addPhotos = function (cardData, photoList) {
+const addPhotos = (cardData, photoList) => {
   const photos = cardData.photos;
 
   photos.forEach((item) => {
     const photo = document.createElement('img');
     photo.style.width = '25%';//временно
     photo.src = item;
-    photo.classList.add(cardSelectors.photo);
+    photo.classList.add(cardSelectors.photoClass);
+
     photoList.appendChild(photo);
+  });
+};
+
+const addFeatures = (cardData, featuresList) => {
+  const features = cardData.features;
+
+  features.forEach((item) => {
+    const feature = document.createElement('li');
+    feature.classList.add(cardSelectors.featureClass);
+    feature.classList.add(`${cardSelectors.featureClass}--${item}`);
+
+    featuresList.appendChild(feature);
   });
 };
 
@@ -42,7 +56,7 @@ const addPhotos = function (cardData, photoList) {
 const cardListElement = document.querySelector('#map-canvas');
 const similarOffersFragment = document.createDocumentFragment();
 
-const cardTemplate = document.querySelector(cardSelectors.cardTemplate)
+const cardTemplate = document.querySelector(cardSelectors.cardTemplateId)
   .content
   .querySelector(cardSelectors.card);
 
@@ -59,14 +73,8 @@ similarOffers.forEach(({ offer, author }) => {
   cardElement.querySelector(cardSelectors.time).textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
 
   const featureListElement = cardElement.querySelector(cardSelectors.features);
-  const modifiers = offer.features.map((feature) => `popup__feature--${feature}`);
-  featureListElement.querySelectorAll(cardSelectors.feature).forEach((item) => {
-    const modifier = item.classList[1];
-
-    if (!modifiers.includes(modifier)) {
-      item.remove();
-    }
-  });
+  featureListElement.innerHTML = '';
+  addFeatures(offer, featureListElement);
 
   cardElement.querySelector(cardSelectors.description).textContent = offer.description;
 
