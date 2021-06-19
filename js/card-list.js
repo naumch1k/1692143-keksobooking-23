@@ -1,4 +1,4 @@
-import { devData } from './data.js';
+import { createOffers } from './data.js';
 
 const cardSelectors = {
   card: '.popup',
@@ -37,15 +37,16 @@ const addPhotos = function (cardData, photoList) {
   });
 };
 
-// Create a new elements using template
+// Create new elements using template
 
+const cardListElement = document.querySelector('#map-canvas');
 const similarOffersFragment = document.createDocumentFragment();
 
 const cardTemplate = document.querySelector(cardSelectors.cardTemplate)
   .content
   .querySelector(cardSelectors.card);
 
-const similarOffers = devData;
+const similarOffers = createOffers();
 
 similarOffers.forEach(({ offer, author }) => {
   const cardElement = cardTemplate.cloneNode(true);
@@ -78,4 +79,6 @@ similarOffers.forEach(({ offer, author }) => {
   similarOffersFragment.appendChild(cardElement);
 });
 
-export { similarOffersFragment };
+const renderCardListElement = () => cardListElement.appendChild(similarOffersFragment);
+
+export { renderCardListElement };

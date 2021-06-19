@@ -109,6 +109,6 @@ const createOffer = () => {
   };
 };
 
-const devData = new Array(OFFER_COPY_COUNT).fill(null).map(() => createOffer());
+const createOffers = () =>  new Array(OFFER_COPY_COUNT).fill(null).map(() => createOffer());
 
-export { devData };
+export { createOffers };
