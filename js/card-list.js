@@ -26,12 +26,19 @@ const OFFER_TYPES = {
   'hotel': 'Отель',
 };
 
+const PhotoSize = {
+  WIDTH: '45px',
+  HEIGHT: '40px',
+};
+
 const addPhotos = (cardData, photoList) => {
+  photoList.innerHTML = '';
   const photos = cardData.photos;
 
   photos.forEach((item) => {
     const photo = document.createElement('img');
-    photo.style.width = '25%';//временно
+    photo.style.width = PhotoSize.WIDTH;
+    photo.style.height = PhotoSize.HEIGHT;
     photo.src = item;
     photo.classList.add(cardSelectors.photoClass);
 
@@ -40,6 +47,7 @@ const addPhotos = (cardData, photoList) => {
 };
 
 const addFeatures = (cardData, featuresList) => {
+  featuresList.innerHTML = '';
   const features = cardData.features;
 
   features.forEach((item) => {
@@ -65,24 +73,26 @@ const similarOffers = createOffers();
 similarOffers.forEach(({ offer, author }) => {
   const cardElement = cardTemplate.cloneNode(true);
 
+  const typeElement = cardElement.querySelector(cardSelectors.type);
+  const capacityElement = cardElement.querySelector(cardSelectors.capacity);
+  const timeElement = cardElement.querySelector(cardSelectors.time);
+  const featureListElement = cardElement.querySelector(cardSelectors.features);
+  const descriptionElement = cardElement.querySelector(cardSelectors.description);
+  const avatarElement = cardElement.querySelector(cardSelectors.avatar);
+  const photoListElement = cardElement.querySelector(cardSelectors.photos);
+
+  // required fields, don't need to be checked
   cardElement.querySelector(cardSelectors.title).textContent = offer.title;
   cardElement.querySelector(cardSelectors.address).textContent = offer.address;
   cardElement.querySelector(cardSelectors.price).textContent = `${offer.price} ₽/ночь`;
-  cardElement.querySelector(cardSelectors.type).textContent = OFFER_TYPES[offer.type];
-  cardElement.querySelector(cardSelectors.capacity).textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
-  cardElement.querySelector(cardSelectors.time).textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
 
-  const featureListElement = cardElement.querySelector(cardSelectors.features);
-  featureListElement.innerHTML = '';
-  addFeatures(offer, featureListElement);
-
-  cardElement.querySelector(cardSelectors.description).textContent = offer.description;
-
-  const photoListElement = cardElement.querySelector(cardSelectors.photos);
-  photoListElement.innerHTML = '';
-  addPhotos(offer, photoListElement);
-
-  cardElement.querySelector(cardSelectors.avatar).src = author.avatar;
+  (offer.type) ? typeElement.textContent = OFFER_TYPES[offer.type] : typeElement.remove();
+  (offer.rooms && offer.guests) ? capacityElement.textContent = `${offer.rooms} комнаты для ${offer.guests} гостей` : capacityElement.remove();
+  (offer.checkin && offer.checkout) ? timeElement.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}` : timeElement.remove();
+  (offer.features) ? addFeatures(offer, featureListElement) : featureListElement.remove();
+  (offer.description) ? descriptionElement.textContent = offer.description : descriptionElement.remove();
+  (offer.photos) ? addPhotos(offer, photoListElement) : photoListElement.remove();
+  (author.avatar) ? avatarElement.src = author.avatar : avatarElement.remove();
 
   similarOffersFragment.appendChild(cardElement);
 });
