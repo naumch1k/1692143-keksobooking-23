@@ -18,7 +18,7 @@ const cardSelectors = {
   avatar: '.popup__avatar',
 };
 
-const OFFER_TYPES = {
+const offerTypes = {
   'flat': 'Квартира',
   'bungalow': 'Бунгало',
   'house': 'Дом',
@@ -86,7 +86,7 @@ similarOffers.forEach(({ offer, author }) => {
   cardElement.querySelector(cardSelectors.address).textContent = offer.address;
   cardElement.querySelector(cardSelectors.price).textContent = `${offer.price} ₽/ночь`;
 
-  (offer.type) ? typeElement.textContent = OFFER_TYPES[offer.type] : typeElement.remove();
+  (offer.type) ? typeElement.textContent = offerTypes[offer.type] : typeElement.remove();
   (offer.rooms && offer.guests) ? capacityElement.textContent = `${offer.rooms} комнаты для ${offer.guests} гостей` : capacityElement.remove();
   (offer.checkin && offer.checkout) ? timeElement.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}` : timeElement.remove();
   (offer.features) ? addFeatures(offer, featureListElement) : featureListElement.remove();

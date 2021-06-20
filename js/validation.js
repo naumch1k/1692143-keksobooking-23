@@ -4,19 +4,22 @@ const TitleLength = {
 };
 
 const Price = {
-  // MIN: {
-  //   'Бунгало': 0,
-  //   'Квартира': 1000,
-  //   'Отель': 3000,
-  //   'Дом': 5000,
-  //   'Дворец': 10000,
-  // },
+  MIN: {
+    'bungalow': 0,
+    'flat': 1000,
+    'hotel': 3000,
+    'house': 5000,
+    'palace': 10000,
+  },
   MAX: 1000000,
 };
 
 const adForm = document.querySelector('.ad-form');
 const titleInput = adForm.querySelector('#title');
+const typeInput = adForm.querySelector('#type');
 const priceInput = adForm.querySelector('#price');
+const timeInInput = adForm.querySelector('#timein');
+const timeOutInput = adForm.querySelector('#timeout');
 const roomNumberInput = adForm.querySelector('#room_number');
 const capacityInput = adForm.querySelector('#capacity');
 
@@ -36,16 +39,36 @@ const enableValidation = () => {
     titleInput.reportValidity();
   });
 
+  typeInput.addEventListener('input', () => {
+    const currentTypeMinPrice = Price.MIN[typeInput.value];
+
+    priceInput.placeholder = currentTypeMinPrice;
+    priceInput.min = currentTypeMinPrice;
+  });
+
+
   priceInput.addEventListener('input', () => {
-    if (priceInput.value > Price.MAX) {
-      priceInput.setCustomValidity(`Максимально допустимая цена - ${Price.MAX}`);
-    } else if (!priceInput.value) {
+    const currentTypeMinPrice = Price.MIN[typeInput.value];
+
+    if (!priceInput.value) {
       priceInput.setCustomValidity('Введите цену, пожалуйста');
-    } else {
+    } else if (priceInput.value > Price.MAX) {
+      priceInput.setCustomValidity(`Максимально допустимая цена - ${Price.MAX}`);
+    } else if (priceInput.value < currentTypeMinPrice) {
+      priceInput.setCustomValidity(`Цена не может быть ниже ${currentTypeMinPrice}`);
+    }  else {
       priceInput.setCustomValidity('');
     }
 
     priceInput.reportValidity();
+  });
+
+  timeInInput.addEventListener('input', () => {
+    timeOutInput.value = timeInInput.value;
+  });
+
+  timeOutInput.addEventListener('input', () => {
+    timeInInput.value = timeOutInput.value;
   });
 
   capacityInput.addEventListener('input', () => {
