@@ -14,6 +14,8 @@ const Price = {
   MAX: 1000000,
 };
 
+const NOT_FOR_GUESTS_ROOM_NUMBER = 100;
+
 const adForm = document.querySelector('.ad-form');
 const titleInput = adForm.querySelector('#title');
 const typeInput = adForm.querySelector('#type');
@@ -74,9 +76,9 @@ const enableValidation = () => {
   capacityInput.addEventListener('input', () => {
     if (Number(roomNumberInput.value) < Number(capacityInput.value)) {
       capacityInput.setCustomValidity('Столько народу не влезет в выбранное количество комнат');
-    } else if (Number(roomNumberInput.value) === 100 && Number(capacityInput.value) !== 0) {
+    } else if (Number(roomNumberInput.value) === NOT_FOR_GUESTS_ROOM_NUMBER && Number(capacityInput.value)) {
       capacityInput.setCustomValidity('100 комнат — не для гостей');
-    } else if (Number(roomNumberInput.value) !== 100 && Number(capacityInput.value) === 0) {
+    } else if (Number(roomNumberInput.value) !== NOT_FOR_GUESTS_ROOM_NUMBER && !Number(capacityInput.value)) {
       capacityInput.setCustomValidity('Не для гостей - выберите опцию 100 комнат');
     } else {
       capacityInput.setCustomValidity('');

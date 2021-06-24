@@ -1,7 +1,8 @@
-import { disableForms } from './form.js';
+import { changeFormsState } from './form.js';
 import { renderCardListElement } from './card-list.js';
 import { enableValidation } from './validation.js';
 
-disableForms(false);
+// 'true' attr for changeFormsState() disables forms, 'false' enables
+changeFormsState(false);
 renderCardListElement();
 enableValidation();

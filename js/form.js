@@ -9,7 +9,7 @@ const mapFiltersForm = document.querySelector('.map__filters');
 const mapFiltersFormSelects = mapFiltersForm.querySelectorAll('select');
 const mapFiltersFormFieldsets = mapFiltersForm.querySelectorAll('fieldset');
 
-const disableForms = (isDisable) => {
+const changeFormsState = (isDisable) => {
 
   const setFieldsState = (fields) => {
     for (let index = 0; index < fields.length; index++) {
@@ -30,4 +30,4 @@ const disableForms = (isDisable) => {
   }
 };
 
-export { disableForms };
+export { changeFormsState };
