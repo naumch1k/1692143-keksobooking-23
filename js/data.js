@@ -8,7 +8,7 @@ import {
 
 // constants
 
-const OFFER_COPY_COUNT = 1;
+const OFFER_COPY_COUNT = 10;
 
 const DIGITS_AFTER_POINT = 5;
 const USER_AVATAR_QUANTITY = 11;

@@ -1,8 +1,5 @@
-import { changeFormsState } from './form.js';
-import { renderCardListElement } from './card-list.js';
 import { enableValidation } from './validation.js';
+import { renderMap } from './map.js';
 
-// 'true' attr for changeFormsState() disables forms, 'false' enables
-changeFormsState(false);
-renderCardListElement();
 enableValidation();
+renderMap();

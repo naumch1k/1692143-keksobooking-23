@@ -1,3 +1,5 @@
+import { setAddress } from './map.js';
+
 const TitleLength = {
   MIN: 30,
   MAX: 100,
@@ -18,6 +20,7 @@ const NOT_FOR_GUESTS_ROOM_NUMBER = 100;
 
 const adForm = document.querySelector('.ad-form');
 const titleInput = adForm.querySelector('#title');
+const addressInput = adForm.querySelector('#address');
 const typeInput = adForm.querySelector('#type');
 const priceInput = adForm.querySelector('#price');
 const timeInInput = adForm.querySelector('#timein');
@@ -40,6 +43,8 @@ const enableValidation = () => {
 
     titleInput.reportValidity();
   });
+
+  setAddress(addressInput);
 
   typeInput.addEventListener('input', () => {
     const currentTypeMinPrice = Price.MIN[typeInput.value];

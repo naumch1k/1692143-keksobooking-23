@@ -30,4 +30,6 @@ const changeFormsState = (isDisable) => {
   }
 };
 
+changeFormsState(true);
+
 export { changeFormsState };
