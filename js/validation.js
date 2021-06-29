@@ -1,3 +1,5 @@
+import { setAddress } from './map.js';
+
 const TitleLength = {
   MIN: 30,
   MAX: 100,
@@ -14,8 +16,11 @@ const Price = {
   MAX: 1000000,
 };
 
+const NOT_FOR_GUESTS_ROOM_NUMBER = 100;
+
 const adForm = document.querySelector('.ad-form');
 const titleInput = adForm.querySelector('#title');
+const addressInput = adForm.querySelector('#address');
 const typeInput = adForm.querySelector('#type');
 const priceInput = adForm.querySelector('#price');
 const timeInInput = adForm.querySelector('#timein');
@@ -38,6 +43,8 @@ const enableValidation = () => {
 
     titleInput.reportValidity();
   });
+
+  setAddress(addressInput);
 
   typeInput.addEventListener('input', () => {
     const currentTypeMinPrice = Price.MIN[typeInput.value];
@@ -74,9 +81,9 @@ const enableValidation = () => {
   capacityInput.addEventListener('input', () => {
     if (Number(roomNumberInput.value) < Number(capacityInput.value)) {
       capacityInput.setCustomValidity('Столько народу не влезет в выбранное количество комнат');
-    } else if (Number(roomNumberInput.value) === 100 && Number(capacityInput.value) !== 0) {
+    } else if (Number(roomNumberInput.value) === NOT_FOR_GUESTS_ROOM_NUMBER && Number(capacityInput.value)) {
       capacityInput.setCustomValidity('100 комнат — не для гостей');
-    } else if (Number(roomNumberInput.value) !== 100 && Number(capacityInput.value) === 0) {
+    } else if (Number(roomNumberInput.value) !== NOT_FOR_GUESTS_ROOM_NUMBER && !Number(capacityInput.value)) {
       capacityInput.setCustomValidity('Не для гостей - выберите опцию 100 комнат');
     } else {
       capacityInput.setCustomValidity('');

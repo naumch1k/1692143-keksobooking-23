@@ -1,7 +1,5 @@
-import { disableForms } from './form.js';
-import { renderCardListElement } from './card-list.js';
 import { enableValidation } from './validation.js';
+import { renderMap } from './map.js';
 
-disableForms(false);
-renderCardListElement();
 enableValidation();
+renderMap();

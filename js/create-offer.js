@@ -1,5 +1,3 @@
-import { createOffers } from './data.js';
-
 const cardSelectors = {
   card: '.popup',
   cardTemplateId: '#card',
@@ -59,18 +57,13 @@ const addFeatures = (cardData, featuresList) => {
   });
 };
 
-// Create new elements using template
-
-const cardListElement = document.querySelector('#map-canvas');
-const similarOffersFragment = document.createDocumentFragment();
+// Create new element using template
 
 const cardTemplate = document.querySelector(cardSelectors.cardTemplateId)
   .content
   .querySelector(cardSelectors.card);
 
-const similarOffers = createOffers();
-
-similarOffers.forEach(({ offer, author }) => {
+const createSimilarOffer = (({ offer, author }) => {
   const cardElement = cardTemplate.cloneNode(true);
 
   const typeElement = cardElement.querySelector(cardSelectors.type);
@@ -94,9 +87,7 @@ similarOffers.forEach(({ offer, author }) => {
   (offer.photos) ? addPhotos(offer, photoListElement) : photoListElement.remove();
   (author.avatar) ? avatarElement.src = author.avatar : avatarElement.remove();
 
-  similarOffersFragment.appendChild(cardElement);
+  return cardElement;
 });
 
-const renderCardListElement = () => cardListElement.appendChild(similarOffersFragment);
-
-export { renderCardListElement };
+export { createSimilarOffer };
