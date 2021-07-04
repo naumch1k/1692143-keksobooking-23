@@ -1,3 +1,8 @@
+import {
+  inputSelectors,
+  adFormSelector,
+  Price
+} from './constants.js';
 import { setAddress } from './map.js';
 
 const TitleLength = {
@@ -5,28 +10,17 @@ const TitleLength = {
   MAX: 100,
 };
 
-const Price = {
-  MIN: {
-    'bungalow': 0,
-    'flat': 1000,
-    'hotel': 3000,
-    'house': 5000,
-    'palace': 10000,
-  },
-  MAX: 1000000,
-};
-
 const NOT_FOR_GUESTS_ROOM_NUMBER = 100;
 
-const adForm = document.querySelector('.ad-form');
-const titleInput = adForm.querySelector('#title');
-const addressInput = adForm.querySelector('#address');
-const typeInput = adForm.querySelector('#type');
-const priceInput = adForm.querySelector('#price');
-const timeInInput = adForm.querySelector('#timein');
-const timeOutInput = adForm.querySelector('#timeout');
-const roomNumberInput = adForm.querySelector('#room_number');
-const capacityInput = adForm.querySelector('#capacity');
+const adForm = document.querySelector(adFormSelector);
+const titleInput = adForm.querySelector(inputSelectors.titleInput);
+const addressInput = adForm.querySelector(inputSelectors.addressInput);
+const typeInput = adForm.querySelector(inputSelectors.typeInput);
+const priceInput = adForm.querySelector(inputSelectors.priceInput);
+const timeInInput = adForm.querySelector(inputSelectors.timeInInput);
+const timeOutInput = adForm.querySelector(inputSelectors.timeOutInput);
+const roomNumberInput = adForm.querySelector(inputSelectors.roomNumberInput);
+const capacityInput = adForm.querySelector(inputSelectors.capacityInput);
 
 const enableValidation = () => {
 

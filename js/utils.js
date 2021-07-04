@@ -1,29 +1,28 @@
-const getRandomNumber = (min, max) =>
-  (min >= 0 && min < max)
-    ? Math.round(Math.random() * (max - min)) + min
-    : Math.round(Math.random() * max);
+const ALERT_SHOW_TIME = 5000;
+const ESCAPE_KEY = 'Escape';
 
-const getRandomFloatNumber = (min, max, digitsAfterPoint) =>
-  (min >= 0 && min < max)
-    ? Number((Math.random() * (max - min) + min).toFixed(digitsAfterPoint))
-    : Number((Math.random() * max).toFixed(digitsAfterPoint));
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 1100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.top = '95px';
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.color = 'white';
+  alertContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
 
-const getRandomArrayElement = (array) => array[getRandomNumber(0, array.length - 1)];
+  alertContainer.textContent = message;
 
-const generateAvatarLink = (index) =>
-  (index.toString().length < 2)
-    ? `img/avatars/user0${index}.png`
-    : `img/avatars/user${index}.png`;
+  document.body.append(alertContainer);
 
-const createArray = (array, maxLength) => {
-  const newArray = [];
-  for (let index = 0; index <= getRandomNumber(0, maxLength); index++) {
-    const tempElement = getRandomArrayElement(array);
-    if (!newArray.includes(tempElement)) {
-      newArray.push(tempElement);
-    }
-  }
-  return newArray;
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
 };
 
-export { getRandomNumber, getRandomFloatNumber, getRandomArrayElement, generateAvatarLink, createArray };
+const isEscEvent = (evt) => evt.key === ESCAPE_KEY;
+
+export { showAlert, isEscEvent };

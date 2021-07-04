@@ -1,5 +1,4 @@
-import { changeFormsState } from './form.js';
-import { createOffers } from './data.js';
+import { changeFormsState } from './form-state.js';
 import { createSimilarOffer } from './create-offer.js';
 
 const DIGITS_AFTER_POINT = 5;
@@ -93,6 +92,11 @@ const setAddress = (input) => {
   });
 };
 
-const renderMap = () => createOffers().forEach((offer) => createSimilarMarker(offer));
+const resetMap = () => {
+  mainMarker.setLatLng(mainMarkerDefaultCoordinates);
+  map.setView(mainMarkerDefaultCoordinates, mapZoomLevel);
+};
 
-export { renderMap, setAddress };
+const renderMap = (offers) => offers.forEach((offer) => createSimilarMarker(offer));
+
+export { renderMap, setAddress, resetMap };
