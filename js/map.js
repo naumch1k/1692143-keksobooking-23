@@ -1,5 +1,4 @@
-import { changeFormsState } from './form.js';
-import { createOffers } from './data.js';
+import { changeFormsState } from './form-state.js';
 import { createSimilarOffer } from './create-offer.js';
 
 const DIGITS_AFTER_POINT = 5;
@@ -13,12 +12,12 @@ const mapZoomLevel = 12;
 
 const iconSettings = {
   mainPin: {
-    iconUrl: '../img/main-pin.svg',
+    iconUrl: 'img/main-pin.svg',
     iconSize: [52, 52],
     iconAnchor: [26, 52],
   },
   similarPin: {
-    iconUrl: '../img/pin.svg',
+    iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   },
@@ -83,24 +82,21 @@ const createSimilarMarker = (offer) => {
 
 // Set ad form address field value by moving the marker across the map
 
-const generateAddress = (obj) => {
-  const objectValues = Object.values(obj);
-  const address = [];
-
-  for (let index = 0; index < objectValues.length; index++) {
-    address.push(Number(objectValues[index].toFixed(DIGITS_AFTER_POINT)));
-  }
-  return address.toString();
-};
+const generateAddress = ({lat, lng}) => `${lat.toFixed(DIGITS_AFTER_POINT)}, ${lng.toFixed(DIGITS_AFTER_POINT)}`;
 
 const setAddress = (input) => {
-  input.setAttribute('value', `${ generateAddress(mainMarkerDefaultCoordinates) }`);
+  input.value = `${ generateAddress(mainMarkerDefaultCoordinates) }`;
 
   mainMarker.on('drag', (evt) => {
-    input.setAttribute('value', `${ generateAddress(evt.target.getLatLng()) }`);
+    input.value = `${ generateAddress(evt.target.getLatLng()) }`;
   });
 };
 
-const renderMap = () => createOffers().forEach((offer) => createSimilarMarker(offer));
+const resetMap = () => {
+  mainMarker.setLatLng(mainMarkerDefaultCoordinates);
+  map.setView(mainMarkerDefaultCoordinates, mapZoomLevel);
+};
 
-export { renderMap, setAddress };
+const renderMap = (offers) => offers.forEach((offer) => createSimilarMarker(offer));
+
+export { renderMap, setAddress, resetMap };
