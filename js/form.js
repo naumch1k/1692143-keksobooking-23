@@ -7,6 +7,7 @@ import {
 import { sendData } from './api.js';
 import { setAddress, resetMap } from './map.js';
 import { showSuccessMessage } from './form-message.js';
+import { resetFilters } from './filter.js';
 
 const adForm = document.querySelector(adFormSelector);
 
@@ -30,6 +31,7 @@ const handleFormSubmit = () => {
   showSuccessMessage();
   resetForm();
   resetMap();
+  resetFilters();
 };
 
 const setFormSubmit = (onSuccess, onFail) => {
@@ -49,6 +51,7 @@ adFormResetButton.addEventListener('click', (evt) => {
 
   resetForm();
   resetMap();
+  resetFilters();
 });
 
 export { setFormSubmit, handleFormSubmit };

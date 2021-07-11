@@ -108,4 +108,8 @@ const setFiltersClick = (cb) => {
   });
 };
 
-export { compareOffers, filterOffers, setFeaturesClick, setFiltersClick };
+const resetFilters = () => {
+  filters.reset();
+};
+
+export { compareOffers, filterOffers, setFeaturesClick, setFiltersClick, resetFilters };
