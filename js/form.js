@@ -2,7 +2,7 @@ import {
   inputSelectors,
   adFormSelector,
   Price
-} from './constants.js';
+} from './utils/constants.js';
 
 import { sendData } from './api.js';
 import { setAddress, resetMap } from './map.js';

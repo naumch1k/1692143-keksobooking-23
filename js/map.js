@@ -1,6 +1,8 @@
 import { changeFormsState } from './form-state.js';
 import { createSimilarOffer } from './create-offer.js';
+import { compareOffers, filterOffers } from './filter.js';
 
+const OFFER_COPY_COUNT = 10;
 const DIGITS_AFTER_POINT = 5;
 
 const mainMarkerDefaultCoordinates = {
@@ -41,7 +43,6 @@ L.tileLayer(
 // Markers
 
 const markerGroup = L.layerGroup().addTo(map);
-
 const mainPinIcon = L.icon(iconSettings.mainPin);
 const similarPinIcon = L.icon(iconSettings.similarPin);
 
@@ -51,9 +52,7 @@ const mainMarker = L.marker(
     draggable: true,
     icon: mainPinIcon,
   },
-);
-
-mainMarker.addTo(map);
+).addTo(map);
 
 const createSimilarMarker = (offer) => {
   const similarMarker = L.marker(
@@ -66,7 +65,6 @@ const createSimilarMarker = (offer) => {
     },
   );
   similarMarker
-    //.addTo(map)
     .addTo(markerGroup)
     .bindPopup(
       createSimilarOffer(offer),
@@ -74,11 +72,7 @@ const createSimilarMarker = (offer) => {
         keepInView: true,
       },
     );
-
-  return similarMarker;
 };
-
-//markerGroup.removeLayer();
 
 // Set ad form address field value by moving the marker across the map
 
@@ -97,6 +91,15 @@ const resetMap = () => {
   map.setView(mainMarkerDefaultCoordinates, mapZoomLevel);
 };
 
-const renderMap = (offers) => offers.forEach((offer) => createSimilarMarker(offer));
+const renderMap = (offers) => {
+  markerGroup.clearLayers();
+
+  offers
+    .slice()
+    .sort(compareOffers)
+    .filter(filterOffers)
+    .slice(0, OFFER_COPY_COUNT)
+    .forEach((offer) => createSimilarMarker(offer));
+};
 
 export { renderMap, setAddress, resetMap };

@@ -1,5 +1,5 @@
-import { adFormSelector } from './constants.js';
-import { isEscEvent } from './utils.js';
+import { adFormSelector } from './utils/constants.js';
+import { isEscEvent } from './utils/utils.js';
 
 const adForm = document.querySelector(adFormSelector);
 

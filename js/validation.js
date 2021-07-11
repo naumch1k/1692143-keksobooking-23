@@ -2,7 +2,7 @@ import {
   inputSelectors,
   adFormSelector,
   Price
-} from './constants.js';
+} from './utils/constants.js';
 import { setAddress } from './map.js';
 
 const TitleLength = {

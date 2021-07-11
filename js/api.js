@@ -1,4 +1,4 @@
-import { showAlert } from './utils.js';
+import { showAlert } from './utils/utils.js';
 
 const Url = {
   SERVER: 'https://23.javascript.pages.academy/keksobooking',
