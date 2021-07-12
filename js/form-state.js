@@ -1,4 +1,4 @@
-import { adFormSelector } from './constants.js';
+import { adFormSelector } from './utils/constants.js';
 
 const formSelectors = {
   adFormDisabledClass: 'ad-form--disabled',
