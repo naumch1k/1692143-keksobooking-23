@@ -74,7 +74,7 @@ const setFeaturesClick = (cb) => {
   });
 };
 
-//  Filter offers
+//  Check if matches filters
 
 const isFilterMatched = (filterValue, offerCondition) => filterValue === String(offerCondition) || filterValue === DEFAULT_VALUE;
 
@@ -89,7 +89,7 @@ const isPriceMatched = (filterValue, offerCondition) => {
   return true;
 };
 
-const filterOffers = (({offer}) => {
+const matchesFilters = (({offer}) => {
   const typeMatched = isFilterMatched(filterValues.type, offer.type);
   const priceMacthed = isPriceMatched(filterValues.price, offer.price);
   const roomsMacthed = isFilterMatched(filterValues.rooms, offer.rooms);
@@ -112,4 +112,4 @@ const resetFilters = () => {
   filters.reset();
 };
 
-export { compareOffers, filterOffers, setFeaturesClick, setFiltersClick, resetFilters };
+export { compareOffers, matchesFilters, setFeaturesClick, setFiltersClick, resetFilters };

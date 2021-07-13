@@ -11,11 +11,11 @@ const adFormFieldsets = adForm.querySelectorAll('fieldset');
 const mapFiltersFormSelects = mapFiltersForm.querySelectorAll('select');
 const mapFiltersFormFieldsets = mapFiltersForm.querySelectorAll('fieldset');
 
-const changeFormsState = (isDisable) => {
+const changeFormsState = (isDisabled) => {
 
   const setFieldsState = (fields) => {
     for (let index = 0; index < fields.length; index++) {
-      fields[index].disabled = isDisable;
+      fields[index].disabled = isDisabled;
     }
   };
 
@@ -23,7 +23,7 @@ const changeFormsState = (isDisable) => {
   setFieldsState(mapFiltersFormSelects);
   setFieldsState(mapFiltersFormFieldsets);
 
-  if (isDisable) {
+  if (isDisabled) {
     adForm.classList.add(formSelectors.adFormDisabledClass);
     mapFiltersForm.classList.add(formSelectors.mapFiltersFormDisabledClass);
   } else {
@@ -31,7 +31,5 @@ const changeFormsState = (isDisable) => {
     mapFiltersForm.classList.remove(formSelectors.mapFiltersFormDisabledClass);
   }
 };
-
-changeFormsState(true);
 
 export { changeFormsState };

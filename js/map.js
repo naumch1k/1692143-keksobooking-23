@@ -1,6 +1,6 @@
 import { changeFormsState } from './form-state.js';
 import { createSimilarOffer } from './create-offer.js';
-import { compareOffers, filterOffers } from './filter.js';
+import { compareOffers, matchesFilters  } from './filter.js';
 
 const OFFER_COPY_COUNT = 10;
 const DIGITS_AFTER_POINT = 5;
@@ -27,18 +27,20 @@ const iconSettings = {
 
 // Set up the map
 
-const map = L.map('map-canvas')
-  .on('load', () => {
-    changeFormsState(false);
-  })
-  .setView(mainMarkerDefaultCoordinates, mapZoomLevel);
+const map = L.map('map-canvas');
 
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
+const initializeMap = () => {
+  map
+    .on('load', () => changeFormsState(false))
+    .setView(mainMarkerDefaultCoordinates, mapZoomLevel);
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  ).addTo(map);
+};
 
 // Markers
 
@@ -94,12 +96,22 @@ const resetMap = () => {
 const renderMap = (offers) => {
   markerGroup.clearLayers();
 
-  offers
+  const sortedOffers = offers
     .slice()
-    .sort(compareOffers)
-    .filter(filterOffers)
-    .slice(0, OFFER_COPY_COUNT)
-    .forEach((offer) => createSimilarMarker(offer));
+    .sort(compareOffers);
+
+  let matchedOffers = 0;
+
+  for ( let index = 0; index < sortedOffers.length; index++) {
+    if (matchedOffers >= OFFER_COPY_COUNT) {
+      break;
+    }
+
+    if (matchesFilters(sortedOffers[index])){
+      createSimilarMarker(sortedOffers[index]);
+      matchedOffers++;
+    }
+  }
 };
 
-export { renderMap, setAddress, resetMap };
+export { initializeMap, renderMap, setAddress, resetMap };
