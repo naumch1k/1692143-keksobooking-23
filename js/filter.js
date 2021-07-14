@@ -8,20 +8,11 @@ const filterSelectors = {
   guestsFilter: '#housing-guests',
 };
 
-const features = document.querySelector(filterSelectors.features);
-const filters = document.querySelector(filterSelectors.filters);
-const typeFilter = filters.querySelector(filterSelectors.typeFilter);
-const priceFilter = filters.querySelector(filterSelectors.priceFilter);
-const roomsFilter = filters.querySelector(filterSelectors.roomsFilter);
-const guestsFilter = filters.querySelector(filterSelectors.guestsFilter);
-
 const DEFAULT_VALUE = 'any';
 
-const filterElements = {
-  type: typeFilter,
-  price: priceFilter,
-  rooms: roomsFilter,
-  guests: guestsFilter,
+const MaxPrices = {
+  FOR_LOW_VALUED: 10000,
+  FOR_MIDDLE_VALUED: 50000,
 };
 
 const filterValues = {
@@ -37,9 +28,19 @@ const priceValues = {
   high: 'high',
 };
 
-const MaxPrices = {
-  FOR_LOW_VALUED: 10000,
-  FOR_MIDDLE_VALUED: 50000,
+const features = document.querySelector(filterSelectors.features);
+const filters = document.querySelector(filterSelectors.filters);
+const typeFilter = filters.querySelector(filterSelectors.typeFilter);
+const priceFilter = filters.querySelector(filterSelectors.priceFilter);
+const roomsFilter = filters.querySelector(filterSelectors.roomsFilter);
+const guestsFilter = filters.querySelector(filterSelectors.guestsFilter);
+
+
+const filterElements = {
+  type: typeFilter,
+  price: priceFilter,
+  rooms: roomsFilter,
+  guests: guestsFilter,
 };
 
 // Compare offers
