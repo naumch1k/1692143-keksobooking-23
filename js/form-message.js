@@ -15,15 +15,6 @@ const errorMessage = document.querySelector('#error')
 
 // Success message
 
-const closeSuccessMessage = () => {
-  successMessage.remove();
-
-  // eslint-disable-next-line no-use-before-define
-  successMessage.removeEventListener('mousedown', onSuccessMessageOverlayClick);
-  // eslint-disable-next-line no-use-before-define
-  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
-};
-
 const onSuccessMessageOverlayClick = () => closeSuccessMessage();
 const onSuccessMessageEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
@@ -33,23 +24,21 @@ const onSuccessMessageEscKeydown = (evt) => {
   }
 };
 
-const showSuccessMessage = () => {
+function closeSuccessMessage () {
+  successMessage.remove();
+
+  successMessage.removeEventListener('mousedown', onSuccessMessageOverlayClick);
+  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
+}
+
+function showSuccessMessage () {
   adForm.insertAdjacentElement('beforeend', successMessage);
 
   successMessage.addEventListener('mousedown', onSuccessMessageOverlayClick);
   document.addEventListener('keydown', onSuccessMessageEscKeydown);
-};
+}
 
 // Error message
-
-const closeErrorMessage = () => {
-  errorMessage.remove();
-
-  // eslint-disable-next-line no-use-before-define
-  errorMessage.removeEventListener('mousedown', onErrorMessageOverlayClick);
-  // eslint-disable-next-line no-use-before-define
-  document.removeEventListener('keydown', onErrorMessageEscKeydown);
-};
 
 const onErrorMessageOverlayClick = () => closeErrorMessage();
 const onErrorMessageEscKeydown = (evt) => {
@@ -60,11 +49,18 @@ const onErrorMessageEscKeydown = (evt) => {
   }
 };
 
-const showErrorMessage = () => {
+function closeErrorMessage() {
+  errorMessage.remove();
+
+  errorMessage.removeEventListener('mousedown', onErrorMessageOverlayClick);
+  document.removeEventListener('keydown', onErrorMessageEscKeydown);
+}
+
+function showErrorMessage () {
   adForm.insertAdjacentElement('beforeend', errorMessage);
 
   errorMessage.addEventListener('mousedown', onErrorMessageOverlayClick);
   document.addEventListener('keydown', onErrorMessageEscKeydown);
-};
+}
 
 export { showSuccessMessage, showErrorMessage };

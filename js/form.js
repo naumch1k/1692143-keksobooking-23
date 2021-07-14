@@ -27,7 +27,7 @@ const resetForm = () => {
   resetPriceInput();
 };
 
-const handleFormSubmit = () => {
+const onFormSubmit = () => {
   showSuccessMessage();
   resetForm();
   resetMap();
@@ -54,4 +54,4 @@ adFormResetButton.addEventListener('click', (evt) => {
   resetFilters();
 });
 
-export { setFormSubmit, handleFormSubmit };
+export { setFormSubmit, onFormSubmit };

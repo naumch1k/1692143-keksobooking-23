@@ -38,8 +38,8 @@ const priceValues = {
 };
 
 const MaxPrices = {
-  forLowValued: 10000,
-  forMiddleValued: 50000,
+  FOR_LOW_VALUED: 10000,
+  FOR_MIDDLE_VALUED: 50000,
 };
 
 // Compare offers
@@ -49,8 +49,8 @@ let enabledFeatures = [];
 const getOfferRank = ({offer}) => {
   let rank = 0;
 
-  for (let index = 0; index < enabledFeatures.length; index++) {
-    if (offer.features && offer.features.includes(enabledFeatures[index])) {
+  for (let i = 0; i < enabledFeatures.length; i++) {
+    if (offer.features && offer.features.includes(enabledFeatures[i])) {
       rank += 1;
     }
   }
@@ -80,22 +80,22 @@ const isFilterMatched = (filterValue, offerCondition) => filterValue === String(
 
 const isPriceMatched = (filterValue, offerCondition) => {
   if (filterValue === priceValues.low) {
-    return offerCondition < MaxPrices.forLowValued;
+    return offerCondition < MaxPrices.FOR_LOW_VALUED;
   } else if (filterValue === priceValues.middle) {
-    return offerCondition > MaxPrices.forLowValued && offerCondition < MaxPrices.forMiddleValued;
+    return offerCondition > MaxPrices.FOR_LOW_VALUED && offerCondition < MaxPrices.FOR_MIDDLE_VALUED;
   } else if (filterValue === priceValues.high) {
-    return offerCondition > MaxPrices.forMiddleValued;
+    return offerCondition > MaxPrices.FOR_MIDDLE_VALUED;
   }
   return true;
 };
 
 const matchesFilters = (({offer}) => {
   const typeMatched = isFilterMatched(filterValues.type, offer.type);
-  const priceMacthed = isPriceMatched(filterValues.price, offer.price);
-  const roomsMacthed = isFilterMatched(filterValues.rooms, offer.rooms);
-  const guestsMacthed = isFilterMatched(filterValues.guests, offer.guests);
+  const priceMatched = isPriceMatched(filterValues.price, offer.price);
+  const roomsMatched = isFilterMatched(filterValues.rooms, offer.rooms);
+  const guestsMatched = isFilterMatched(filterValues.guests, offer.guests);
 
-  return typeMatched && priceMacthed && roomsMacthed && guestsMacthed;
+  return typeMatched && priceMatched && roomsMatched && guestsMatched;
 });
 
 const setFiltersClick = (cb) => {

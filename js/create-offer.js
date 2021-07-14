@@ -29,6 +29,10 @@ const PhotoSize = {
   HEIGHT: '40px',
 };
 
+const cardTemplate = document.querySelector(cardSelectors.cardTemplateId)
+  .content
+  .querySelector(cardSelectors.card);
+
 const addPhotos = (cardData, photoList) => {
   photoList.innerHTML = '';
   const photos = cardData.photos;
@@ -56,12 +60,6 @@ const addFeatures = (cardData, featuresList) => {
     featuresList.appendChild(feature);
   });
 };
-
-// Create new element using template
-
-const cardTemplate = document.querySelector(cardSelectors.cardTemplateId)
-  .content
-  .querySelector(cardSelectors.card);
 
 const createSimilarOffer = (({ offer, author }) => {
   const cardElement = cardTemplate.cloneNode(true);

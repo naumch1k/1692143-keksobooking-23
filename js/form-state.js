@@ -14,8 +14,8 @@ const mapFiltersFormFieldsets = mapFiltersForm.querySelectorAll('fieldset');
 const changeFormsState = (isDisabled) => {
 
   const setFieldsState = (fields) => {
-    for (let index = 0; index < fields.length; index++) {
-      fields[index].disabled = isDisabled;
+    for (let i = 0; i < fields.length; i++) {
+      fields[i].disabled = isDisabled;
     }
   };
 

@@ -1,19 +1,12 @@
-const ALERT_SHOW_TIME = 5000;
+const ALERT_SHOW_TIME = 100000;
 const ESCAPE_KEY = 'Escape';
+
+const ALERT_STYLE_SETTING = 'z-index:1100;position:absolute;left:0;top:95px;right:0;padding:10px 3px;font-size:30px;background-color:rgba(0, 0, 0, 0.8);color:white;text-align:center;';
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = 1100;
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.left = 0;
-  alertContainer.style.top = '95px';
-  alertContainer.style.right = 0;
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.color = 'white';
-  alertContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
 
+  alertContainer.style.cssText = ALERT_STYLE_SETTING;
   alertContainer.textContent = message;
 
   document.body.append(alertContainer);

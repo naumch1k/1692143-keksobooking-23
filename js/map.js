@@ -3,14 +3,13 @@ import { createSimilarOffer } from './create-offer.js';
 import { compareOffers, matchesFilters  } from './filter.js';
 
 const OFFER_COPY_COUNT = 10;
+const MAP_ZOOM_LEVEL = 12;
 const DIGITS_AFTER_POINT = 5;
 
 const mainMarkerDefaultCoordinates = {
   lat: 35.675,
   lng: 139.75,
 };
-
-const mapZoomLevel = 12;
 
 const iconSettings = {
   mainPin: {
@@ -25,26 +24,9 @@ const iconSettings = {
   },
 };
 
-// Set up the map
-
 const map = L.map('map-canvas');
-
-const initializeMap = () => {
-  map
-    .on('load', () => changeFormsState(false))
-    .setView(mainMarkerDefaultCoordinates, mapZoomLevel);
-
-  L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    },
-  ).addTo(map);
-};
-
-// Markers
-
 const markerGroup = L.layerGroup().addTo(map);
+
 const mainPinIcon = L.icon(iconSettings.mainPin);
 const similarPinIcon = L.icon(iconSettings.similarPin);
 
@@ -55,6 +37,19 @@ const mainMarker = L.marker(
     icon: mainPinIcon,
   },
 ).addTo(map);
+
+const initializeMap = () => {
+  map
+    .on('load', () => changeFormsState(false))
+    .setView(mainMarkerDefaultCoordinates, MAP_ZOOM_LEVEL);
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  ).addTo(map);
+};
 
 const createSimilarMarker = (offer) => {
   const similarMarker = L.marker(
@@ -76,8 +71,6 @@ const createSimilarMarker = (offer) => {
     );
 };
 
-// Set ad form address field value by moving the marker across the map
-
 const generateAddress = ({lat, lng}) => `${lat.toFixed(DIGITS_AFTER_POINT)}, ${lng.toFixed(DIGITS_AFTER_POINT)}`;
 
 const setAddress = (input) => {
@@ -90,7 +83,7 @@ const setAddress = (input) => {
 
 const resetMap = () => {
   mainMarker.setLatLng(mainMarkerDefaultCoordinates);
-  map.setView(mainMarkerDefaultCoordinates, mapZoomLevel);
+  map.setView(mainMarkerDefaultCoordinates, MAP_ZOOM_LEVEL);
 };
 
 const renderMap = (offers) => {
@@ -102,13 +95,13 @@ const renderMap = (offers) => {
 
   let matchedOffers = 0;
 
-  for ( let index = 0; index < sortedOffers.length; index++) {
+  for ( let i = 0; i < sortedOffers.length; i++) {
     if (matchedOffers >= OFFER_COPY_COUNT) {
       break;
     }
 
-    if (matchesFilters(sortedOffers[index])){
-      createSimilarMarker(sortedOffers[index]);
+    if (matchesFilters(sortedOffers[i])){
+      createSimilarMarker(sortedOffers[i]);
       matchedOffers++;
     }
   }
